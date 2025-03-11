@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Filament\Facades\Filament;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Filament::registerRenderHook('head.start', function () {
+            return '<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">';
+        });
     }
 }
