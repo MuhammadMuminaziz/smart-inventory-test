@@ -23,6 +23,7 @@ class Product extends Model
         }
 
         $this->save();
+        return true;
     }
 
     public function transactions()
