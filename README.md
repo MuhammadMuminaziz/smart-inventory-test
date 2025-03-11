@@ -1,66 +1,83 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Inventory Management Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Overview
+A web-based inventory management application built with Laravel and Filament. The application provides features for analyzing product stock, checking character similarity between inputs, and managing incoming and outgoing products.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 1. Analyze Product
+This feature allows users to analyze the current state of products in inventory and receive recommendations based on stock availability and sales trends.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### Process:
+- Retrieves available and unavailable products.
+- Determines the top-selling products.
+- Calculates total stock value.
+- Generates recommendations based on inventory status.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+#### Example Output:
+- "Many products are out of stock! Restock immediately."
+- "Top-selling product: Product A. Keep the stock available!"
 
-## Learning Laravel
+### 2. Check Input Similarity
+A tool to compare two user inputs and calculate the percentage of unique characters from the first input that exist in the second input.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+#### Example:
+- **Input 1**: `ABBCD`
+- **Input 2**: `Gallant Duck`
+- Matched characters: `A, D, C` (3 out of 5 unique characters in input 1)
+- **Result**: `60% match`
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 3. Incoming Product
+A module to record the addition of new stock into inventory.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+#### Features:
+- Add new stock with details such as product name, quantity, and date.
+- Automatically updates product stock in the database.
+- Tracks stock history.
 
-## Laravel Sponsors
+### 4. Outcoming Product
+A module to record products leaving inventory (sales or transfers).
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+#### Features:
+- Deducts stock from inventory based on outcoming quantity.
+- Tracks transaction history.
+- Prevents transactions if stock is insufficient.
 
-### Premium Partners
+## Technology Stack
+- **Backend**: Laravel 12 (MVC architecture)
+- **Frontend**: Filament
+- **Database**: SQLite/MySQL/PostgreSQL
+- **Authentication**: Laravel Breeze (or Filament Auth)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/inventory-app.git
+   cd inventory-app
+   ```
+2. Install dependencies:
+   ```bash
+   composer install
+   npm install && npm run build
+   ```
+3. Set up environment:
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+4. Configure database in `.env` file and run migrations:
+   ```bash
+   php artisan migrate --seed
+   ```
+5. Start the development server:
+   ```bash
+   php artisan serve
+   ```
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Usage
+- Access the application via `http://localhost:8000`
+- Log in using the admin credentials (if seeded)
+- Navigate through the dashboard to manage inventory
 
 ## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License.
