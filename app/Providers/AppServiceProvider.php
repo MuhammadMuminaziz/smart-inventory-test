@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use Filament\Facades\Filament;
-use Illuminate\Routing\UrlGenerator;
+use Filament\Support\Facades\FilamentView;
+use Filament\View\PanelsRenderHook;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,14 +21,11 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(UrlGenerator $url): void
+    public function boot(): void
     {
-        if(env('APP_ENV') !== 'local')
-        {
-            $url->forceSchema('https');
-        }
-        // Filament::registerRenderHook('head.start', function () {
-        //     return '<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">';
-        // });
+        FilamentView::registerRenderHook(
+            PanelsRenderHook::HEAD_START,
+            fn (): string => Blade::render('<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">'),
+        );
     }
 }
