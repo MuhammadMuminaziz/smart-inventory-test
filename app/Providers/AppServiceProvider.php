@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Filament\Facades\Filament;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -18,10 +19,14 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot(UrlGenerator $url): void
     {
-        Filament::registerRenderHook('head.start', function () {
-            return '<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">';
-        });
+        if(env('APP_ENV') !== 'local')
+        {
+            $url->forceSchema('https');
+        }
+        // Filament::registerRenderHook('head.start', function () {
+        //     return '<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">';
+        // });
     }
 }
